@@ -1,5 +1,6 @@
 import HomeIcon from '@mui/icons-material/Home'
 import PaletteIcon from '@mui/icons-material/Palette'
+import ContactsIcon from '@mui/icons-material/Contacts';
 import { Box, Drawer, List, ListItemButton, ListItemIcon, ListItemText, Toolbar } from '@mui/material'
 import type { SxProps, Theme } from '@mui/material/styles'
 import type { ReactNode } from 'react'
@@ -16,6 +17,7 @@ interface NavItem {
 const NAV_ITEMS: NavItem[] = [
   { label: 'Home', path: '/', icon: <HomeIcon /> },
   { label: 'Gallery MUI', path: '/gallery', icon: <PaletteIcon /> },
+  { label: 'Contacts', path: '/contacts', icon: <ContactsIcon /> },
 ]
 
 export default function Sidebar({

@@ -3,6 +3,7 @@ import AppLayout from '../components/layout/AppLayout'
 import GalleryContainer from '../containers/gallery/GalleryContainer'
 import HomeContainer from '../containers/home/HomeContainer'
 import NotFoundContainer from '../containers/notFound/NotFoundContainer'
+import ContactsContainer from '../containers/contacts/ContactsContainer'
 
 export const router = createBrowserRouter([
   {
@@ -11,6 +12,7 @@ export const router = createBrowserRouter([
     children: [
       { index: true, element: <HomeContainer /> },
       { path: 'gallery', element: <GalleryContainer /> },
+      { path: 'contacts', element: <ContactsContainer /> },
       { path: '404', element: <NotFoundContainer /> },
       { path: '*', element: <Navigate to="/404" replace /> },
     ],
