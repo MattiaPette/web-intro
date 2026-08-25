@@ -1,27 +1,22 @@
-import { useCallback, useState } from "react";
+import { useState } from "react";
 import { Stack, Typography } from "@mui/material";
-import UserSectionComponent from "../../components/user/UserSection";
-import UsernameTextComponent from "../../components/user/UserNameText";
+import type { User } from "../../components/user/user.model";
+import UserActionsComponent from "../../components/user/UserActions";
 
 export default function UserContainer() {
-  const valoreIniziale = false;
-  const initialUsername = "mariorossi";
-  const [editEnabled, setEditEnabled] = useState(valoreIniziale);
-  const [username, setUsername] = useState<string>(initialUsername);
+  const initialData: User = {
+    id: 1,
+    name: "Mario",
+    surname: "Rossi",
+    email: "mario.rossi@example.com"
+  }
 
-  const handleAbilita = useCallback(() => setEditEnabled(true), []);
-  const handleDisabilita = useCallback(() => setEditEnabled(false), []);
-  const handleReset = useCallback(() => setEditEnabled(valoreIniziale), []);
-  const handleUsernameChange = useCallback((s: string) => setUsername(s), []);
+  const [user, setUser] = useState<User>(initialData);
 
   return <Stack spacing={2}>
-    <Typography variant="h3">User: {username}</Typography>
-    <Typography variant="body1">Modifica permessa: {editEnabled ? "Abilitata" : "Disabilitata"}</Typography>
-    <UserSectionComponent
-      handleAbilitaClick={handleAbilita}
-      handleDisabilitaClick={handleDisabilita}
-      handleResetClick={handleReset}
-    />
-    <UsernameTextComponent initialValue={initialUsername} handleUsernameChange={handleUsernameChange} />
+    <Typography variant="body1">Nome: {user.name}</Typography>
+    <Typography variant="body1">Cognome: {user.surname}</Typography>
+    <Typography variant="body1">Email: {user.email}</Typography>
+    <UserActionsComponent />
   </Stack >
 }
