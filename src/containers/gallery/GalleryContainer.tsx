@@ -29,7 +29,6 @@ export default function GalleryContainer() {
   const [snackbarMessage, setSnackbarMessage] = useState<string | null>(null)
   const [dialogOpen, setDialogOpen] = useState(false)
   const [stepperStep, setStepperStep] = useState(0)
-
   const updateForm = useCallback((patch: Partial<GalleryFormState>) => {
     setForm((prev) => ({ ...prev, ...patch }))
   }, [])
