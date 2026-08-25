@@ -14,9 +14,11 @@ import type { ContactComponentProps } from './ContactsSection.model';
 export default function ContactComponent({
   contacts,
   onDeleteContact,
+  onEditContact,
+  onAddContact,
 }: ContactComponentProps) {
   return <Stack>
-    <Button variant="contained" startIcon={<AddIcon />}>Add Contact</Button>
+    <Button variant="contained" onClick={onAddContact} startIcon={<AddIcon />}>Add Contact</Button>
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 600 }}>
         <TableHead>
@@ -36,7 +38,7 @@ export default function ContactComponent({
               <TableCell>{row.email}</TableCell>
               <TableCell>{row.telephone}</TableCell>
               <TableCell>
-                <IconButton color="primary" size='small'>
+                <IconButton color="primary" size='small' onClick={() => onEditContact(row.id)}>
                   <EditIcon />
                 </IconButton>
                 <IconButton color="error" size='small' onClick={() => onDeleteContact(row.id)}>
