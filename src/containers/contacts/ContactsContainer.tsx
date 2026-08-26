@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import ContactComponent from '../../components/contacts/ContactsSection';
 import ContactsDialogComponent from '../../components/contacts/ContactsDialog';
 import type { Contact } from '../../types/contact';
-import { createContact, getAllContacts } from '../../services/contacts/contacts.service';
+import { createContact, deleteContact, getAllContacts, updateContact } from '../../services/contacts/contacts.service';
 
 export default function ContactsContainer() {
   const [contacts, setContacts] = useState<Contact[]>([]);
@@ -16,14 +16,14 @@ export default function ContactsContainer() {
   }, []);
 
   const handleContactDeletion = useCallback((id: number) => {
-    const newContacts = [...contacts];
-    newContacts.splice(newContacts.findIndex(c => c.id === id), 1);
-    setContacts(newContacts);
+    deleteContact(id).then(() => {
+      getAllContacts().then((contactsList) => setContacts(contactsList));
+    });
   }, [contacts]);
 
   const handleAddContactSubmit = useCallback((addedContact: Omit<Contact, 'id'>) => {
     createContact(addedContact).then(() => {
-      getAllContacts().then((contractsList) => setContacts(contractsList));
+      getAllContacts().then((contactsList) => setContacts(contactsList));
       setAddContactDialogOpen(false);
     });
   }, [contacts]);
@@ -34,18 +34,12 @@ export default function ContactsContainer() {
       console.error("error");
     } else {
       const { id } = editDialogData;
-
-      const newContacts = [...contacts];
-      const idx = newContacts.findIndex(c => c.id === id);
-      if (idx === -1) {
-        return null;
-      }
-      newContacts[idx] = { ...newContacts[idx], ...editedContact };
-
-      setContacts(newContacts);
-      setEditContactDialogOpen(false);
+      updateContact(id, editedContact).then(() => {
+        getAllContacts().then((contactsList) => setContacts(contactsList));
+        setEditContactDialogOpen(false);
+      });
     }
-  }, [contacts, editDialogData]);
+  }, [editDialogData]);
 
   const handleAddDialogClose = useCallback(() => setAddContactDialogOpen(false), []);
   const handleEditDialogClose = useCallback(() => setEditContactDialogOpen(false), []);
