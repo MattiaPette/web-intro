@@ -1,31 +1,19 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
-import type { Contact } from './contacts.model';
 import ContactComponent from '../../components/contacts/ContactsSection';
 import ContactsDialogComponent from '../../components/contacts/ContactsDialog';
+import type { Contact } from '../../types/contact';
+import { createContact, getAllContacts } from '../../services/contacts/contacts.service';
 
 export default function ContactsContainer() {
-  const contactsMock: Contact[] = [
-    {
-      id: 1,
-      name: 'John',
-      surname: 'Doe',
-      email: 'text@example.com',
-      telephone: '1234567890',
-    },
-    {
-      id: 2,
-      name: 'Jane',
-      surname: 'Doe',
-      email: 'test1@example.com',
-      telephone: '0987654321',
-    }
-  ];
-
-  const [contacts, setContacts] = useState<Contact[]>(contactsMock);
+  const [contacts, setContacts] = useState<Contact[]>([]);
   const [addContactDialogOpen, setAddContactDialogOpen] = useState(false);
   const [editContactDialogOpen, setEditContactDialogOpen] = useState(false);
   const [editDialogData, setEditDialogData] = useState<Contact>();
+
+  useEffect(() => {
+    getAllContacts().then((contractsList) => setContacts(contractsList));
+  }, []);
 
   const handleContactDeletion = useCallback((id: number) => {
     const newContacts = [...contacts];
@@ -34,16 +22,10 @@ export default function ContactsContainer() {
   }, [contacts]);
 
   const handleAddContactSubmit = useCallback((addedContact: Omit<Contact, 'id'>) => {
-    let nextId = Math.max(...contacts.map(c => c.id), 0) + 1;
-
-    const newContact = {
-      ...addedContact,
-      id: nextId,
-    }
-
-    const newContacts = [...contacts, newContact];
-    setContacts(newContacts);
-    setAddContactDialogOpen(false);
+    createContact(addedContact).then(() => {
+      getAllContacts().then((contractsList) => setContacts(contractsList));
+      setAddContactDialogOpen(false);
+    });
   }, [contacts]);
 
   const handleEditContactSubmit = useCallback((editedContact: Omit<Contact, 'id'>) => {

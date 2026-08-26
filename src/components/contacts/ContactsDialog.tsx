@@ -1,6 +1,6 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle, TextField } from "@mui/material";
 import type { ContactsDialogProps } from "./ContactsDialog.model";
-import type { Contact } from "../../containers/contacts/contacts.model";
+import type { Contact } from "../../types/contact";
 
 export default function ContactsDialogComponent({
   open,

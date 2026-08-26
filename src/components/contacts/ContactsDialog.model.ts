@@ -1,4 +1,4 @@
-import type { Contact } from "../../containers/contacts/contacts.model"
+import type { Contact } from "../../types/contact";
 
 export type ContactsDialogProps = {
   open: boolean;
