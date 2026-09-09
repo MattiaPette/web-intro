@@ -4,4 +4,5 @@ export type Contact = {
   surname: string;
   email: string;
   telephone: string;
+  typology?: string;
 }
