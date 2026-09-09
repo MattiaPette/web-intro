@@ -4,6 +4,7 @@ import GalleryContainer from '../containers/gallery/GalleryContainer'
 import HomeContainer from '../containers/home/HomeContainer'
 import NotFoundContainer from '../containers/notFound/NotFoundContainer'
 import ContactsContainer from '../containers/contacts/ContactsContainer'
+import TeachersContainer from '../containers/teachers/TeachersContainer.tsx'
 import UserContainer from '../containers/user/UserContainer'
 
 export const router = createBrowserRouter([
@@ -14,6 +15,7 @@ export const router = createBrowserRouter([
       { index: true, element: <HomeContainer /> },
       { path: 'gallery', element: <GalleryContainer /> },
       { path: 'contacts', element: <ContactsContainer /> },
+      { path: 'teachers', element: <TeachersContainer /> },
       { path: 'user', element: <UserContainer /> },
       { path: '404', element: <NotFoundContainer /> },
       { path: '*', element: <Navigate to="/404" replace /> },
