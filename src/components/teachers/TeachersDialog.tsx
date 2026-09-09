@@ -1,6 +1,6 @@
 import { Button, CircularProgress, Dialog, DialogActions, DialogContent, DialogTitle, Stack, TextField } from '@mui/material'
+import type { FormEvent } from 'react'
 import type { TeacherFormData, TeachersDialogProps } from './TeachersDialog.model.ts'
-import type { SubmitEvent } from 'react';
 
 export default function TeachersDialog({
   open,
@@ -10,10 +10,10 @@ export default function TeachersDialog({
   onCancel,
   onSubmit,
 }: TeachersDialogProps) {
-  const handleSubmit = (event: SubmitEvent) => {
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
 
-    const formData = new FormData(event.target as HTMLFormElement)
+    const formData = new FormData(event.currentTarget)
     const yearsOfExperience = formData.get('yearsOfExperience')?.toString().trim() ?? ''
     const teacher: TeacherFormData = {
       name: formData.get('name')?.toString().trim() ?? '',
